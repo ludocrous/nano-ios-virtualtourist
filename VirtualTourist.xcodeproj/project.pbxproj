@@ -13,6 +13,7 @@
 		A9509D171C09EC7C00FB9418 /* VirtualTourist.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A9509D151C09EC7C00FB9418 /* VirtualTourist.xcdatamodeld */; };
 		A9509D191C09EC7C00FB9418 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9509D181C09EC7C00FB9418 /* Assets.xcassets */; };
 		A9509D1C1C09EC7C00FB9418 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A9509D1A1C09EC7C00FB9418 /* LaunchScreen.storyboard */; };
+		A9509D281C0B015F00FB9418 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9509D271C0B015F00FB9418 /* CollectionViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		A9509D181C09EC7C00FB9418 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A9509D1B1C09EC7C00FB9418 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A9509D1D1C09EC7C00FB9418 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A9509D271C0B015F00FB9418 /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 			children = (
 				A9509D0E1C09EC7C00FB9418 /* AppDelegate.swift */,
 				A9509D101C09EC7C00FB9418 /* MapViewController.swift */,
+				A9509D271C0B015F00FB9418 /* CollectionViewController.swift */,
 				A9509D121C09EC7C00FB9418 /* Main.storyboard */,
 				A9509D181C09EC7C00FB9418 /* Assets.xcassets */,
 				A9509D1A1C09EC7C00FB9418 /* LaunchScreen.storyboard */,
@@ -143,6 +146,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A9509D281C0B015F00FB9418 /* CollectionViewController.swift in Sources */,
 				A9509D111C09EC7C00FB9418 /* MapViewController.swift in Sources */,
 				A9509D0F1C09EC7C00FB9418 /* AppDelegate.swift in Sources */,
 				A9509D171C09EC7C00FB9418 /* VirtualTourist.xcdatamodeld in Sources */,
