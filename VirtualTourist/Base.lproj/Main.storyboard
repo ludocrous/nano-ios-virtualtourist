@@ -46,7 +46,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="SRm-i6-vHB" id="Lvl-hv-U5S"/>
-                        <segue destination="yQU-hV-Nwf" kind="show" identifier="showCollections" id="fES-tl-PCa"/>
+                        <segue destination="yQU-hV-Nwf" kind="show" identifier="showCollection" id="fES-tl-PCa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -70,17 +70,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="z2z-Ud-NCT">
-                                <rect key="frame" x="0.0" y="64" width="600" height="128"/>
-                                <animations/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="128" id="Rbq-VN-2NX"/>
-                                </constraints>
-                            </mapView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="hes-NO-HyM">
-                                <rect key="frame" x="0.0" y="192" width="600" height="408"/>
+                                <rect key="frame" x="0.0" y="192" width="600" height="364"/>
                                 <animations/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="abl-sH-NaA">
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="abl-sH-NaA">
                                     <size key="itemSize" width="162" height="172"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -100,19 +93,41 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="opJ-4o-gwS">
+                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                <animations/>
+                                <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="mtK-XK-za8"/>
+                                    <barButtonItem title="Item" id="BBH-Te-6Co"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="WHz-gJ-6Si"/>
+                                </items>
+                            </toolbar>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" zoomEnabled="NO" scrollEnabled="NO" rotateEnabled="NO" pitchEnabled="NO" showsBuildings="NO" showsPointsOfInterest="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z2z-Ud-NCT">
+                                <rect key="frame" x="0.0" y="64" width="600" height="128"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="Rbq-VN-2NX"/>
+                                </constraints>
+                            </mapView>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="hes-NO-HyM" firstAttribute="top" secondItem="z2z-Ud-NCT" secondAttribute="bottom" id="Gwq-Wv-Bg2"/>
-                            <constraint firstItem="cjW-qz-rIU" firstAttribute="top" secondItem="hes-NO-HyM" secondAttribute="bottom" id="J1I-ib-JUY"/>
+                            <constraint firstItem="cjW-qz-rIU" firstAttribute="top" secondItem="opJ-4o-gwS" secondAttribute="bottom" id="Lez-SM-biw"/>
                             <constraint firstItem="hes-NO-HyM" firstAttribute="leading" secondItem="qQw-8k-AGA" secondAttribute="leadingMargin" constant="-20" id="Yyc-Sp-qL9"/>
                             <constraint firstAttribute="trailingMargin" secondItem="z2z-Ud-NCT" secondAttribute="trailing" constant="-20" id="akW-cn-ogU"/>
                             <constraint firstAttribute="trailingMargin" secondItem="hes-NO-HyM" secondAttribute="trailing" constant="-20" id="dCA-nG-xCn"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="opJ-4o-gwS" secondAttribute="trailing" constant="-20" id="dwO-78-pgJ"/>
                             <constraint firstItem="z2z-Ud-NCT" firstAttribute="top" secondItem="uso-bI-OfI" secondAttribute="bottom" id="o08-7o-Bq0"/>
                             <constraint firstItem="z2z-Ud-NCT" firstAttribute="leading" secondItem="qQw-8k-AGA" secondAttribute="leadingMargin" constant="-20" id="rl2-kd-glN"/>
+                            <constraint firstItem="opJ-4o-gwS" firstAttribute="top" secondItem="hes-NO-HyM" secondAttribute="bottom" id="u04-nN-z2t"/>
+                            <constraint firstItem="opJ-4o-gwS" firstAttribute="leading" secondItem="qQw-8k-AGA" secondAttribute="leadingMargin" constant="-20" id="vtF-Kz-QGY"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="mapView" destination="z2z-Ud-NCT" id="Bkl-ej-Vds"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pHL-yk-rdP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

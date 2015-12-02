@@ -14,6 +14,7 @@ class MapViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
     
     @IBAction func doSomething(sender: UIBarButtonItem) {
+        
     }
     
     override func viewDidLoad() {
@@ -31,15 +32,25 @@ class MapViewController: UIViewController {
         if sender.state == UIGestureRecognizerState.Began {
             let touchLocation : CGPoint = sender.locationInView(mapView)
             let coordinate : CLLocationCoordinate2D = mapView.convertPoint(touchLocation, toCoordinateFromView: mapView)
-            let annotation = MKPointAnnotation()
-            annotation.coordinate = coordinate
+            let annotation = Pin(latitude: coordinate.latitude, longitude: coordinate.longitude)
+//            annotation.coordinate = coordinate
             mapView.addAnnotation(annotation)
         }
       
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "showCollection" {
+            if let collectionViewController = segue.destinationViewController as? CollectionViewController {
+                collectionViewController.pin = sender as! Pin
+            }
+        }
+    }
+    
+    
     func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
-        self.performSegueWithIdentifier("showCollections", sender: self)
+        let pin = view.annotation
+        self.performSegueWithIdentifier("showCollection", sender: pin)
     }
     
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
