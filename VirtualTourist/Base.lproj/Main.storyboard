@@ -61,7 +61,7 @@
         <!--Collection View Controller-->
         <scene sceneID="BhA-IA-DNg">
             <objects>
-                <viewController id="yQU-hV-Nwf" customClass="CollectionViewController" customModule="VirtualTourist" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="yQU-hV-Nwf" customClass="CollectionViewController" customModule="VirtualTourist" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="uso-bI-OfI"/>
                         <viewControllerLayoutGuide type="bottom" id="cjW-qz-rIU"/>
@@ -73,23 +73,39 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="hes-NO-HyM">
                                 <rect key="frame" x="0.0" y="192" width="600" height="364"/>
                                 <animations/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="abl-sH-NaA">
-                                    <size key="itemSize" width="162" height="172"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="1" minimumInteritemSpacing="0.0" id="abl-sH-NaA">
+                                    <size key="itemSize" width="200" height="200"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="photo" id="jfM-PG-cLt">
-                                        <rect key="frame" x="0.0" y="0.0" width="162" height="172"/>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="photo" id="jfM-PG-cLt" customClass="PhotoCell" customModule="VirtualTourist" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="162" height="172"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="k6C-vE-bD6">
+                                                    <rect key="frame" x="2" y="2" width="196" height="196"/>
+                                                    <animations/>
+                                                    <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </imageView>
+                                            </subviews>
                                             <animations/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <animations/>
+                                        <constraints>
+                                            <constraint firstItem="k6C-vE-bD6" firstAttribute="top" secondItem="jfM-PG-cLt" secondAttribute="top" constant="2" id="2lX-bR-aY4"/>
+                                            <constraint firstAttribute="trailing" secondItem="k6C-vE-bD6" secondAttribute="trailing" constant="2" id="2v6-eW-TBF"/>
+                                            <constraint firstAttribute="bottom" secondItem="k6C-vE-bD6" secondAttribute="bottom" constant="2" id="3aw-PS-rS9"/>
+                                            <constraint firstItem="k6C-vE-bD6" firstAttribute="leading" secondItem="jfM-PG-cLt" secondAttribute="leading" constant="2" id="Bs2-Cm-a5p"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="imageView" destination="k6C-vE-bD6" id="t7s-ak-yIW"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
@@ -126,6 +142,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="collectionView" destination="hes-NO-HyM" id="ksA-GE-ZaA"/>
                         <outlet property="mapView" destination="z2z-Ud-NCT" id="Bkl-ej-Vds"/>
                     </connections>
                 </viewController>
