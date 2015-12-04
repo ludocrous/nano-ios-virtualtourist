@@ -14,6 +14,7 @@ class MapViewController: UIViewController, NSFetchedResultsControllerDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var editButton: UIBarButtonItem!
+    @IBOutlet weak var editMessageView: UIView!
     
     
     var inEditMode : Bool = false
@@ -49,8 +50,12 @@ class MapViewController: UIViewController, NSFetchedResultsControllerDelegate {
     func setUpViewForState() {
         if inEditMode {
             editButton.title = "Done"
+            editMessageView.hidden = false
+            mapView.frame.origin.y -= 50
         } else {
             editButton.title = "Edit"
+            editMessageView.hidden = true
+            mapView.frame.origin.y += 50
         }
     }
 

@@ -39,4 +39,11 @@ class PhotoCell: UICollectionViewCell {
         activityView?.startAnimating()
         imageView.addSubview(activityView!)
     }
+    
+    func stopActivity() {
+        if let activityView = activityView {
+            activityView.stopAnimating()
+            activityView.removeFromSuperview()
+        }
+    }
 }

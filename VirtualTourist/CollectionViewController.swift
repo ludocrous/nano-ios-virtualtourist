@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import CoreData
 
 class CollectionViewController : UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
@@ -24,7 +25,30 @@ class CollectionViewController : UIViewController, UICollectionViewDelegate, UIC
 
         setupMapView()
         noImageView.hidden = true
+        loadCollectionForPin()
     }
+    
+    var sharedContext: NSManagedObjectContext {
+        return CoreDataStackManager.sharedInstance().managedObjectContext
+    }
+    
+    lazy var fetchedResultsController: NSFetchedResultsController = {
+        
+        let fetchRequest = NSFetchRequest(entityName: "Photo")
+        
+        fetchRequest.sortDescriptors = []//NSSortDescriptor(key: "title", ascending: true)]
+        fetchRequest.predicate = NSPredicate(format: "pin == %@", self.pin);
+        
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
+            managedObjectContext: self.sharedContext,
+            sectionNameKeyPath: nil,
+            cacheName: nil)
+        
+        return fetchedResultsController
+        
+    }()
+    
+
 
     func setupMapView() {
         mapView.centerCoordinate = pin.coordinate
@@ -36,9 +60,54 @@ class CollectionViewController : UIViewController, UICollectionViewDelegate, UIC
     }
     
     func loadCollectionForPin() {
-        FlClient.sharedInstance().getCollectionAroundPin(pin) 
+        if pin.photos.isEmpty {
+            FlClient.sharedInstance().getCollectionAroundPin(pin) { (success, errorString) -> Void in
+                if success {
+                    dbg("Yes Please")
+                    do {
+                        try self.fetchedResultsController.performFetch()
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self.collectionView.reloadData()
+                        })
+                    } catch {}
+                } else {
+                    dbg("Oh Oh")
+                }
+            }
+        }
         
     }
+    
+    func configureCell(cell: PhotoCell, atIndexPath indexPath : NSIndexPath) {
+        
+        let photo = self.fetchedResultsController.objectAtIndexPath(indexPath) as! Photo
+        
+        if let localImage = photo.image {
+            cell.imageView.image = localImage
+        } else if photo.imagePath == nil || photo.imagePath == "" {
+            cell.imageView.image = UIImage(named: "noImage")
+            //
+            //            // If the above cases don't work, then we should download the image
+            //
+        } else {
+            
+            // Set the placeholder
+            cell.imageView.image = UIImage(named: "imagePlaceHolder")
+            cell.showActivity()
+            let task = FlClient.sharedInstance().getFlickrPhotoImage(photo.imagePath!) { (imageData, error) -> Void in
+                if let data = imageData {
+                    dispatch_async(dispatch_get_main_queue()) {
+                        let image = UIImage(data: data)
+                        photo.image = image
+                        cell.imageView.image = image
+                        cell.stopActivity()
+                    }
+                }
+            }
+            cell.taskToCancelifCellIsReused = task
+        }
+    }
+    
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -55,17 +124,22 @@ class CollectionViewController : UIViewController, UICollectionViewDelegate, UIC
     //MARK: Collection view methods
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return 1
+        let sections = self.fetchedResultsController.sections?.count ?? 0
+        dbg("Sections: \(sections)")
+        return sections
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 21
+        let sectionInfo = self.fetchedResultsController.sections![section]
+        
+        dbg("number Of Cells: \(sectionInfo.numberOfObjects)")
+        return sectionInfo.numberOfObjects
     }
     
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("photo", forIndexPath: indexPath) as! PhotoCell
-        cell.showActivity()
+        configureCell(cell, atIndexPath: indexPath)
         return cell
     }
 }

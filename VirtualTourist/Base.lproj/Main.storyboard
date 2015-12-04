@@ -27,12 +27,34 @@
                                     <outletCollection property="gestureRecognizers" destination="gBV-m5-mGW" appends="YES" id="Ohs-qd-Ryz"/>
                                 </connections>
                             </mapView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dBF-Ly-SLv">
+                                <rect key="frame" x="0.0" y="550" width="600" height="50"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap Pins To Delete" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jj5-JD-wMJ">
+                                        <rect key="frame" x="229" y="14" width="142" height="21"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <animations/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="Jj5-JD-wMJ" firstAttribute="centerX" secondItem="dBF-Ly-SLv" secondAttribute="centerX" id="471-rd-vOu"/>
+                                    <constraint firstItem="Jj5-JD-wMJ" firstAttribute="centerY" secondItem="dBF-Ly-SLv" secondAttribute="centerY" id="PHl-D8-lsC"/>
+                                    <constraint firstAttribute="height" constant="50" id="tKl-i3-SEf"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="SRm-i6-vHB" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="6iW-JF-mgj"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="SRm-i6-vHB" secondAttribute="bottom" id="CUr-hM-HAr"/>
+                            <constraint firstItem="dBF-Ly-SLv" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="FDc-Ec-TR5"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="dBF-Ly-SLv" secondAttribute="bottom" id="IC9-Hr-tOC"/>
+                            <constraint firstAttribute="trailing" secondItem="dBF-Ly-SLv" secondAttribute="trailing" id="duO-RH-ewu"/>
                             <constraint firstItem="SRm-i6-vHB" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="jeX-hX-xBW"/>
                             <constraint firstAttribute="trailingMargin" secondItem="SRm-i6-vHB" secondAttribute="trailing" constant="-20" id="uqx-F9-CBo"/>
                         </constraints>
@@ -46,6 +68,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="editButton" destination="sda-yN-VGa" id="12r-Fd-548"/>
+                        <outlet property="editMessageView" destination="dBF-Ly-SLv" id="oEy-rF-ymc"/>
                         <outlet property="mapView" destination="SRm-i6-vHB" id="Lvl-hv-U5S"/>
                         <segue destination="yQU-hV-Nwf" kind="show" identifier="showCollection" id="fES-tl-PCa"/>
                     </connections>

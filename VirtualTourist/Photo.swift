@@ -10,7 +10,16 @@ import UIKit
 import CoreData
 
 class Photo : NSManagedObject {
+
+    struct Keys {
+        static let ID = "id"
+        static let Title = "title"
+        static let ImagePath = "url_m"
+    }
+
+    
     @NSManaged var id: String?
+    @NSManaged var title: String?
     @NSManaged var imagePath: String?
     @NSManaged var pin: Pin?
     
@@ -18,14 +27,16 @@ class Photo : NSManagedObject {
         super.init(entity: entity, insertIntoManagedObjectContext: context)
     }
     
-    convenience init(id: String, imagePath: String, context: NSManagedObjectContext) {
+    convenience init(dictionary: [String : AnyObject], context: NSManagedObjectContext) {
         let entity = NSEntityDescription.entityForName("Photo", inManagedObjectContext: context)!
         self.init(entity: entity, insertIntoManagedObjectContext: context)
-        self.id = id
-        self.imagePath = imagePath
+        
+        id = dictionary[Keys.ID] as? String
+        title = dictionary[Keys.Title] as? String
+        imagePath = dictionary[Keys.ImagePath] as? String
     }
     
-    var photoImage: UIImage? {
+    var image: UIImage? {
         
         get {
             return FlClient.Caches.imageCache.imageWithIdentifier(imagePath)

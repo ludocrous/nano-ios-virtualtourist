@@ -11,7 +11,7 @@ import Foundation
 
 extension FlClient {
     
-    func getCollectionAroundPin(pin : Pin) {
+    func getCollectionAroundPin(pin : Pin, completionHandler: (success: Bool, errorString: String?) -> Void) {
         let methodArguments = [
             "method": METHOD_NAME,
             "api_key": API_KEY,
@@ -24,7 +24,7 @@ extension FlClient {
             "nojsoncallback": NO_JSON_CALLBACK,
             "per_page": "21"
         ]
-        getImageFromFlickrBySearch(methodArguments)
+        getFlickrPhotosBySearch(forPin: pin, methodArguments: methodArguments, completionHandler: completionHandler)
     }
     
     struct Caches {

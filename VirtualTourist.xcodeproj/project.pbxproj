@@ -103,11 +103,11 @@
 		A9509D2A1C0B7C7A00FB9418 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				A9509D151C09EC7C00FB9418 /* VirtualTourist.xcdatamodeld */,
 				A9509D311C0B9B0B00FB9418 /* Pin.swift */,
 				A9509D331C0B9BCD00FB9418 /* Photo.swift */,
 				A959534C1C11BBE9000A3656 /* ImageCache.swift */,
 				A9509D2C1C0B813800FB9418 /* Clients */,
-				A9509D151C09EC7C00FB9418 /* VirtualTourist.xcdatamodeld */,
 			);
 			name = Model;
 			sourceTree = "<group>";
