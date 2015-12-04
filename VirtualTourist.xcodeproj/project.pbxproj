@@ -22,6 +22,7 @@
 		A95953461C0F1DDB000A3656 /* secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95953451C0F1DDB000A3656 /* secret.swift */; };
 		A95953481C105F7A000A3656 /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95953471C105F7A000A3656 /* PhotoCell.swift */; };
 		A959534A1C108328000A3656 /* CoreDataStackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95953491C108328000A3656 /* CoreDataStackManager.swift */; };
+		A959534E1C11BBE9000A3656 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = A959534C1C11BBE9000A3656 /* ImageCache.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		A95953451C0F1DDB000A3656 /* secret.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = secret.swift; sourceTree = "<group>"; };
 		A95953471C105F7A000A3656 /* PhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 		A95953491C108328000A3656 /* CoreDataStackManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackManager.swift; sourceTree = "<group>"; };
+		A959534C1C11BBE9000A3656 /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 			children = (
 				A9509D311C0B9B0B00FB9418 /* Pin.swift */,
 				A9509D331C0B9BCD00FB9418 /* Photo.swift */,
+				A959534C1C11BBE9000A3656 /* ImageCache.swift */,
 				A9509D2C1C0B813800FB9418 /* Clients */,
 				A9509D151C09EC7C00FB9418 /* VirtualTourist.xcdatamodeld */,
 			);
@@ -213,6 +216,7 @@
 				A95953461C0F1DDB000A3656 /* secret.swift in Sources */,
 				A95953441C0C7855000A3656 /* FlConvenience.swift in Sources */,
 				A95953481C105F7A000A3656 /* PhotoCell.swift in Sources */,
+				A959534E1C11BBE9000A3656 /* ImageCache.swift in Sources */,
 				A9509D171C09EC7C00FB9418 /* VirtualTourist.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

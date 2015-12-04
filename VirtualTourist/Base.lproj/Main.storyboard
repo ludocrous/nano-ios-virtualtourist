@@ -40,11 +40,12 @@
                     <navigationItem key="navigationItem" title="Virtual Tourist" id="ux7-j6-pNz">
                         <barButtonItem key="rightBarButtonItem" title="Edit" id="sda-yN-VGa">
                             <connections>
-                                <action selector="doSomething:" destination="BYZ-38-t0r" id="Dv1-dL-ZFv"/>
+                                <action selector="editButtonPressed:" destination="BYZ-38-t0r" id="dUs-Qt-h6x"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="editButton" destination="sda-yN-VGa" id="12r-Fd-548"/>
                         <outlet property="mapView" destination="SRm-i6-vHB" id="Lvl-hv-U5S"/>
                         <segue destination="yQU-hV-Nwf" kind="show" identifier="showCollection" id="fES-tl-PCa"/>
                     </connections>

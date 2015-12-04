@@ -27,4 +27,8 @@ extension FlClient {
         getImageFromFlickrBySearch(methodArguments)
     }
     
+    struct Caches {
+        static let imageCache = ImageCache()
+    }
+    
 }

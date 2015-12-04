@@ -8,6 +8,7 @@
 
 import Foundation
 import MapKit
+import CoreData
 
 let BOUNDING_BOX_HALF_WIDTH = 1.0
 let BOUNDING_BOX_HALF_HEIGHT = 1.0
@@ -17,11 +18,23 @@ let LON_MIN = -180.0
 let LON_MAX = 180.0
 
 
-class Pin : NSObject, MKAnnotation {
-    var latitude : Double
-    var longitude : Double
-    var photos =  [Photo]()
+class Pin : NSManagedObject, MKAnnotation {
+    @NSManaged var latitude : Double
+    @NSManaged var longitude : Double
+    @NSManaged var photos : [Photo]
     
+    
+    override init(entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext?) {
+        super.init(entity: entity, insertIntoManagedObjectContext: context)
+    }
+
+    convenience init (latitude : Double, longitude: Double, context: NSManagedObjectContext) {
+        let entity = NSEntityDescription.entityForName("Pin", inManagedObjectContext: context)!
+        self.init(entity: entity, insertIntoManagedObjectContext: context)
+        
+        self.latitude = latitude
+        self.longitude = longitude
+    }
     
     var coordinate: CLLocationCoordinate2D {
         get {
@@ -42,10 +55,4 @@ class Pin : NSObject, MKAnnotation {
         
         return "\(bottom_left_lon),\(bottom_left_lat),\(top_right_lon),\(top_right_lat)"
     }
-    
-    init (latitude : Double, longitude: Double) {
-        self.latitude = latitude
-        self.longitude = longitude
-    }
-    
 }

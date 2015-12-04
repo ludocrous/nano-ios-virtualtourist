@@ -22,6 +22,15 @@ class PhotoCell: UICollectionViewCell {
             }
         }
     }
+    
+    var taskToCancelifCellIsReused: NSURLSessionTask? {
+        
+        didSet {
+            if let taskToCancel = oldValue {
+                taskToCancel.cancel()
+            }
+        }
+    }
 
     func showActivity() {
         activityView = UIActivityIndicatorView(activityIndicatorStyle: .WhiteLarge)
