@@ -125,6 +125,24 @@
                                     <constraint firstAttribute="height" constant="128" id="Rbq-VN-2NX"/>
                                 </constraints>
                             </mapView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wsF-NF-7oO">
+                                <rect key="frame" x="0.0" y="192" width="600" height="364"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This pin has no images." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bzv-gv-ISt">
+                                        <rect key="frame" x="210" y="171" width="180" height="21"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="Bzv-gv-ISt" firstAttribute="centerY" secondItem="wsF-NF-7oO" secondAttribute="centerY" id="JS0-lG-Sy6"/>
+                                    <constraint firstItem="Bzv-gv-ISt" firstAttribute="centerX" secondItem="wsF-NF-7oO" secondAttribute="centerX" id="UmY-IR-DjL"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -132,18 +150,23 @@
                             <constraint firstItem="hes-NO-HyM" firstAttribute="top" secondItem="z2z-Ud-NCT" secondAttribute="bottom" id="Gwq-Wv-Bg2"/>
                             <constraint firstItem="cjW-qz-rIU" firstAttribute="top" secondItem="opJ-4o-gwS" secondAttribute="bottom" id="Lez-SM-biw"/>
                             <constraint firstItem="hes-NO-HyM" firstAttribute="leading" secondItem="qQw-8k-AGA" secondAttribute="leadingMargin" constant="-20" id="Yyc-Sp-qL9"/>
+                            <constraint firstAttribute="trailing" secondItem="wsF-NF-7oO" secondAttribute="trailing" id="ZMS-HZ-4PN"/>
                             <constraint firstAttribute="trailingMargin" secondItem="z2z-Ud-NCT" secondAttribute="trailing" constant="-20" id="akW-cn-ogU"/>
                             <constraint firstAttribute="trailingMargin" secondItem="hes-NO-HyM" secondAttribute="trailing" constant="-20" id="dCA-nG-xCn"/>
+                            <constraint firstItem="wsF-NF-7oO" firstAttribute="top" secondItem="z2z-Ud-NCT" secondAttribute="bottom" id="dnk-cn-JLO"/>
                             <constraint firstAttribute="trailingMargin" secondItem="opJ-4o-gwS" secondAttribute="trailing" constant="-20" id="dwO-78-pgJ"/>
+                            <constraint firstItem="opJ-4o-gwS" firstAttribute="top" secondItem="wsF-NF-7oO" secondAttribute="bottom" id="ncl-Ij-A3z"/>
                             <constraint firstItem="z2z-Ud-NCT" firstAttribute="top" secondItem="uso-bI-OfI" secondAttribute="bottom" id="o08-7o-Bq0"/>
                             <constraint firstItem="z2z-Ud-NCT" firstAttribute="leading" secondItem="qQw-8k-AGA" secondAttribute="leadingMargin" constant="-20" id="rl2-kd-glN"/>
                             <constraint firstItem="opJ-4o-gwS" firstAttribute="top" secondItem="hes-NO-HyM" secondAttribute="bottom" id="u04-nN-z2t"/>
                             <constraint firstItem="opJ-4o-gwS" firstAttribute="leading" secondItem="qQw-8k-AGA" secondAttribute="leadingMargin" constant="-20" id="vtF-Kz-QGY"/>
+                            <constraint firstItem="wsF-NF-7oO" firstAttribute="leading" secondItem="qQw-8k-AGA" secondAttribute="leading" id="yfC-he-GZZ"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="hes-NO-HyM" id="ksA-GE-ZaA"/>
                         <outlet property="mapView" destination="z2z-Ud-NCT" id="Bkl-ej-Vds"/>
+                        <outlet property="noImageView" destination="wsF-NF-7oO" id="duX-m1-41B"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pHL-yk-rdP" userLabel="First Responder" sceneMemberID="firstResponder"/>

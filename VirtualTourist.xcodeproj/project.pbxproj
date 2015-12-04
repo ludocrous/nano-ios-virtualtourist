@@ -21,6 +21,7 @@
 		A95953441C0C7855000A3656 /* FlConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95953431C0C7855000A3656 /* FlConvenience.swift */; };
 		A95953461C0F1DDB000A3656 /* secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95953451C0F1DDB000A3656 /* secret.swift */; };
 		A95953481C105F7A000A3656 /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95953471C105F7A000A3656 /* PhotoCell.swift */; };
+		A959534A1C108328000A3656 /* CoreDataStackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A95953491C108328000A3656 /* CoreDataStackManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		A95953431C0C7855000A3656 /* FlConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlConvenience.swift; sourceTree = "<group>"; };
 		A95953451C0F1DDB000A3656 /* secret.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = secret.swift; sourceTree = "<group>"; };
 		A95953471C105F7A000A3656 /* PhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
+		A95953491C108328000A3656 /* CoreDataStackManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +77,7 @@
 				A95953451C0F1DDB000A3656 /* secret.swift */,
 				A9509D2F1C0B83E800FB9418 /* LCUtils.swift */,
 				A9509D0E1C09EC7C00FB9418 /* AppDelegate.swift */,
+				A95953491C108328000A3656 /* CoreDataStackManager.swift */,
 				A9509D291C0B7C6300FB9418 /* Controller */,
 				A9509D2A1C0B7C7A00FB9418 /* Model */,
 				A9509D121C09EC7C00FB9418 /* Main.storyboard */,
@@ -204,6 +207,7 @@
 				A9509D281C0B015F00FB9418 /* CollectionViewController.swift in Sources */,
 				A9509D111C09EC7C00FB9418 /* MapViewController.swift in Sources */,
 				A9509D0F1C09EC7C00FB9418 /* AppDelegate.swift in Sources */,
+				A959534A1C108328000A3656 /* CoreDataStackManager.swift in Sources */,
 				A9509D2E1C0B819100FB9418 /* FlClient.swift in Sources */,
 				A9509D301C0B83E900FB9418 /* LCUtils.swift in Sources */,
 				A95953461C0F1DDB000A3656 /* secret.swift in Sources */,

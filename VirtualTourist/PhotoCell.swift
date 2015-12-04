@@ -29,6 +29,5 @@ class PhotoCell: UICollectionViewCell {
         activityView?.color = UIColor.whiteColor()
         activityView?.startAnimating()
         imageView.addSubview(activityView!)
-        dbg("ShowActivity called on photocell")
     }
 }

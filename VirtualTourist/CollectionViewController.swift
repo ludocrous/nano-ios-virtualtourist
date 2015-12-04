@@ -14,15 +14,16 @@ class CollectionViewController : UIViewController, UICollectionViewDelegate, UIC
     var pin: Pin!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var noImageView: UIView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         collectionView.delegate = self
         collectionView.dataSource = self
-//        let width = CGRectGetWidth(collectionView!.frame) / 3
-//        let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
+
         setupMapView()
+        noImageView.hidden = true
     }
 
     func setupMapView() {
