@@ -156,7 +156,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wsF-NF-7oO">
                                 <rect key="frame" x="0.0" y="192" width="600" height="364"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This pin has no images." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bzv-gv-ISt">
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This pin has no images." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bzv-gv-ISt">
                                         <rect key="frame" x="210" y="171" width="180" height="21"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -196,6 +196,7 @@
                         <outlet property="collectionToolbar" destination="opJ-4o-gwS" id="Ade-xh-6cY"/>
                         <outlet property="collectionView" destination="hes-NO-HyM" id="ksA-GE-ZaA"/>
                         <outlet property="mapView" destination="z2z-Ud-NCT" id="Bkl-ej-Vds"/>
+                        <outlet property="noImageLabel" destination="Bzv-gv-ISt" id="kVn-lS-5DO"/>
                         <outlet property="noImageView" destination="wsF-NF-7oO" id="duX-m1-41B"/>
                     </connections>
                 </viewController>

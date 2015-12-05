@@ -9,7 +9,7 @@
 import UIKit
 
 
-let DEBUG_PRINT = true
+let DEBUG_PRINT = false
 let ERROR_PRINT = true
 
 //Debug and Error statements used to replace generic print statements in code

@@ -18,6 +18,7 @@ class CollectionViewController : UIViewController, UICollectionViewDelegate, UIC
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var noImageView: UIView!
+    @IBOutlet weak var noImageLabel: UILabel!
     @IBOutlet weak var collectionButton: UIBarButtonItem!
     @IBOutlet weak var collectionToolbar: UIToolbar!
     
@@ -45,7 +46,6 @@ class CollectionViewController : UIViewController, UICollectionViewDelegate, UIC
         setupMapView()
         loadCollectionForPin()
         fetchResults()
-        setupView()
     }
     
     //MARK: Properties
@@ -94,6 +94,7 @@ class CollectionViewController : UIViewController, UICollectionViewDelegate, UIC
     //function to control the display whether or not the pin has photos associated with it
     func setupView() {
             noImageView.hidden = pinHasImages
+            noImageLabel.hidden = pinHasImages
             updateCollectionButton()
     }
     
