@@ -24,14 +24,14 @@ class PhotoCell: UICollectionViewCell {
     }
     
     var taskToCancelifCellIsReused: NSURLSessionTask? {
-        
+        // Mechanism to ensure that we don't have hanging tasks if screen is scrolled away from cell still waiting for image
         didSet {
             if let taskToCancel = oldValue {
                 taskToCancel.cancel()
             }
         }
     }
-
+    // Show activity spinner while waiting
     func showActivity() {
         activityView = UIActivityIndicatorView(activityIndicatorStyle: .WhiteLarge)
         activityView?.center = CGPointMake(self.frame.width / 2, self.frame.height / 2)
@@ -40,6 +40,7 @@ class PhotoCell: UICollectionViewCell {
         imageView.addSubview(activityView!)
     }
     
+    //Stop Activity spinner
     func stopActivity() {
         if let activityView = activityView {
             activityView.stopAnimating()

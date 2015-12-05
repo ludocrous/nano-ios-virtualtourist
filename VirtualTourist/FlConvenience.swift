@@ -11,6 +11,7 @@ import Foundation
 
 extension FlClient {
     
+    // First step in querying the Flickr api
     func getCollectionAroundPin(pin : Pin, completionHandler: (success: Bool, errorString: String?) -> Void) {
         let methodArguments = [
             "method": METHOD_NAME,
@@ -27,6 +28,7 @@ extension FlClient {
         getFlickrPhotosBySearch(forPin: pin, methodArguments: methodArguments, completionHandler: completionHandler)
     }
     
+    // Cache to store local copies of image data for collections after first loading.
     struct Caches {
         static let imageCache = ImageCache()
     }

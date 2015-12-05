@@ -8,6 +8,26 @@
 
 import UIKit
 
+
+let DEBUG_PRINT = false
+let ERROR_PRINT = true
+
+//Debug and Error statements used to replace generic print statements in code
+//Used for debug statements
+func dbg(toPrint : AnyObject) {
+    if DEBUG_PRINT {
+        print("Dbg:\(toPrint)")
+    }
+}
+
+//Used for error statements
+func err(printString : String) {
+    if ERROR_PRINT {
+        print("Dbg:\(printString)")
+    }
+}
+
+
 func displayAlert(title: String, message: String?, onViewController: UIViewController) {
     let myAlert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
     myAlert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
@@ -20,17 +40,6 @@ func displayAlertOnMainThread(title: String, message: String?, onViewController:
     })
 }
 
-func dbg(toPrint : AnyObject) {
-    if AppDelegate.DEBUG_PRINT {
-        print("Dbg:\(toPrint)")
-    }
-}
-
-func err(printString : String) {
-    if AppDelegate.DEBUG_PRINT {
-        print("Dbg:\(printString)")
-    }
-}
 
 func daysBetweenDates(startDate: NSDate, endDate: NSDate) -> Int
 {

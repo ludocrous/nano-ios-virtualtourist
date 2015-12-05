@@ -23,6 +23,7 @@ class Photo : NSManagedObject {
     @NSManaged var imagePath: String?
     @NSManaged var pin: Pin?
     
+    //CoreData compliance
     override init(entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext?) {
         super.init(entity: entity, insertIntoManagedObjectContext: context)
     }
@@ -37,6 +38,7 @@ class Photo : NSManagedObject {
         dbg("Photo instance created")
     }
     
+    // Actual image data stored using an id as key, to avoid issues with Documents path changing every runtime in simulator.
     var image: UIImage? {
         
         get {
@@ -47,9 +49,14 @@ class Photo : NSManagedObject {
             FlClient.Caches.imageCache.storeImage(newValue, withIdentifier: id!)
         }
     }
-
-    deinit {
-        dbg("Photo being destroyed")
-    }
     
+    // This function ensures that the file in cache (and ultimately Document storage) is deleted when the associated CoreData NSManaged Object is deleted.
+
+    override func prepareForDeletion() {
+        super.prepareForDeletion()
+        if image != nil {
+            image = nil
+            dbg("Deleting image from cache and document persistence")
+        }
+    }
 }

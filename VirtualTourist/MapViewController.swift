@@ -15,13 +15,10 @@ class MapViewController: UIViewController, NSFetchedResultsControllerDelegate {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var editButton: UIBarButtonItem!
     @IBOutlet weak var editMessageView: UIView!
-    
-    
+
     var inEditMode : Bool = false
     
-    @IBAction func doSomething(sender: UIBarButtonItem) {
-        
-    }
+    //MARK: Lifecycle functions
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,13 +28,14 @@ class MapViewController: UIViewController, NSFetchedResultsControllerDelegate {
         setAnnotationsFromPins()
     }
     
+    //MARK: Properties
     var sharedContext: NSManagedObjectContext {
         return CoreDataStackManager.sharedInstance().managedObjectContext
     }
     
 
     lazy var fetchedResultsController: NSFetchedResultsController = {
-        
+
         let fetchRequest = NSFetchRequest(entityName: "Pin")
         fetchRequest.sortDescriptors = []
         
@@ -47,20 +45,9 @@ class MapViewController: UIViewController, NSFetchedResultsControllerDelegate {
         return fetchedResultsController
     }()
 
-    func setUpViewForState() {
-        if inEditMode {
-            editButton.title = "Done"
-            editMessageView.hidden = false
-            mapView.frame.origin.y -= 50
-        } else {
-            editButton.title = "Edit"
-            editMessageView.hidden = true
-            mapView.frame.origin.y += 50
-        }
-    }
-
+    //MARK: Actions for map and button
     @IBAction func mapPressed(sender: UILongPressGestureRecognizer) {
-        if sender.state == UIGestureRecognizerState.Began {
+        if !inEditMode && sender.state == UIGestureRecognizerState.Began {
             let touchLocation : CGPoint = sender.locationInView(mapView)
             let coordinate : CLLocationCoordinate2D = mapView.convertPoint(touchLocation, toCoordinateFromView: mapView)
             createPinAtCoordinates(latitude: coordinate.latitude, longitude: coordinate.longitude)
@@ -73,13 +60,28 @@ class MapViewController: UIViewController, NSFetchedResultsControllerDelegate {
     }
     
     
+    // Function to control the visual transition between edit mode and normal mode
+    func setUpViewForState() {
+        if inEditMode {
+            editButton.title = "Done"
+            editMessageView.hidden = false
+            mapView.frame.origin.y -= 50
+        } else {
+            editButton.title = "Edit"
+            editMessageView.hidden = true
+            mapView.frame.origin.y += 50
+        }
+    }
+    
     func createPinAtCoordinates(latitude latitude: Double, longitude: Double) {
+        // This will create a new instance on Pin, show it on the map and save the context
         let pin = Pin(latitude: latitude, longitude: longitude, context: sharedContext)
         mapView.addAnnotation(pin)
         CoreDataStackManager.sharedInstance().saveContext()
     }
     
     func setAnnotationsFromPins() {
+        // Load the pins from context and place as annotations on the map
         do {
             try fetchedResultsController.performFetch()
             if let results = fetchedResultsController.fetchedObjects {
@@ -99,7 +101,7 @@ class MapViewController: UIViewController, NSFetchedResultsControllerDelegate {
         }
     }
     
-    
+    //MARK: Delegate methods
     func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
         if let pin = view.annotation {
             mapView.deselectAnnotation(pin, animated: false)
@@ -130,16 +132,9 @@ class MapViewController: UIViewController, NSFetchedResultsControllerDelegate {
         return pinView
     }
     
-    func mapView(mapView: MKMapView, annotationView: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        
-        if control == annotationView.rightCalloutAccessoryView {
-            let app = UIApplication.sharedApplication()
-            app.openURL(NSURL(string: annotationView.annotation!.subtitle!!)!)
-        }
-    }
-
 
     //MARK - Persist map position functions
+    
     var filePath : String {
         let manager = NSFileManager.defaultManager()
         let url = manager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first! as NSURL

@@ -138,7 +138,7 @@
                                 <animations/>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="mtK-XK-za8"/>
-                                    <barButtonItem title="Item" id="BBH-Te-6Co">
+                                    <barButtonItem title="New Collection" id="BBH-Te-6Co">
                                         <connections>
                                             <action selector="collectionButtonPressed:" destination="yQU-hV-Nwf" id="bRs-ey-Yye"/>
                                         </connections>

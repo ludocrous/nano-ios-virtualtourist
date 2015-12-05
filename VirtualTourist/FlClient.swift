@@ -15,7 +15,7 @@ let EXTRAS = "url_m"
 let SAFE_SEARCH = "1"
 let DATA_FORMAT = "json"
 let NO_JSON_CALLBACK = "1"
-let PER_PAGE = 21
+let PER_PAGE = 21 //Using as demo app seems to limit to 21 images per collection
 
 
 class FlClient : NSObject {
@@ -32,8 +32,6 @@ class FlClient : NSObject {
         session = NSURLSession.sharedSession()
         super.init()
     }
-    
-    
     
         func getFlickrPhotosBySearch(forPin pin: Pin, methodArguments: [String : AnyObject], completionHandler: (success: Bool, errorString: String?) -> Void) -> NSURLSessionTask {
         
@@ -105,9 +103,20 @@ class FlClient : NSObject {
             }
             
             /* Pick a random page! */
-            let pageLimit = min(totalPages, 40)
-            let randomPage = 1 // Int(arc4random_uniform(UInt32(pageLimit))) + 1
-            self.getFlickrPhotosBySearchWithPage(forPin: pin, methodArguments: methodArguments, pageNumber: randomPage, completionHandler: completionHandler)
+//            let pageLimit = min(totalPages, 40)
+            if totalPages > 0 {
+                // Here we select the next page for a new collection. 
+                //If its the first time it will use page 1 and once we reach the end of totalpages scroll around again and start at 1
+                let page = pin.pageForCollection < totalPages ? pin.pageForCollection + 1 : 1
+                pin.pageForCollection = page
+                dbg("Retrieving collection from page: \(page)")
+                //now we redo the query for a specific page.
+                //TODO: If page = 1 , we could jump to completionHandler here to save second query.
+                self.getFlickrPhotosBySearchWithPage(forPin: pin, methodArguments: methodArguments, pageNumber: page, completionHandler: completionHandler)
+            } else {
+                //if totalpages = 0 then abort
+                completionHandler(success: false, errorString: "No photos returned")
+            }
         }
         
         task.resume()
@@ -117,6 +126,7 @@ class FlClient : NSObject {
     func getFlickrPhotosBySearchWithPage(forPin pin: Pin, methodArguments: [String : AnyObject], pageNumber: Int, completionHandler: (success: Bool, errorString: String?) -> Void) {
         
         /* Add the page to the method's arguments */
+        // Same as above, except with specfic page.
         var withPageDictionary = methodArguments
         withPageDictionary["page"] = pageNumber
         
@@ -200,57 +210,14 @@ class FlClient : NSObject {
                 for photo in photosArray {
                     let photoDictionary = photo as [String: AnyObject]
                     dbg(photoDictionary)
-//                    let id = photoDictionary["id"] as? Int64
-//                    let title = photoDictionary["title"] as? String
-//                    let imagePath = photoDictionary["url_m"] as? String
+                    //Creat the new photo instance witch associated context.
                     let newPhoto = Photo(dictionary: photoDictionary, context: CoreDataStackManager.sharedInstance().managedObjectContext)
                     newPhoto.pin = pin
                 }
                 completionHandler (success: true, errorString: nil)
                 
-//               let randomPhotoIndex = Int(arc4random_uniform(UInt32(photosArray.count)))
-                
-//                let photoDictionary = photosArray[randomPhotoIndex] as [String: AnyObject]
-                
-//                let photoTitle = photoDictionary["title"] as? String /* non-fatal */
-                
-                /* GUARD: Does our photo have a key for 'url_m'? */
-//                guard let imageUrlString = photoDictionary["url_m"] as? String else {
-//                    err("Cannot find key 'url_m' in \(photoDictionary)")
-//                    return
-//                }
-//
-//                let imageURL = NSURL(string: imageUrlString)
-//                if let imageData = NSData(contentsOfURL: imageURL!) {
-//                    dispatch_async(dispatch_get_main_queue(), {
-//                        
-//                        self.setUIEnabled(enabled: true)
-//                        self.defaultLabel.alpha = 0.0
-//                        self.photoImageView.image = UIImage(data: imageData)
-//                        
-//                        if methodArguments["bbox"] != nil {
-//                            if let photoTitle = photoTitle {
-//                                self.photoTitleLabel.text = "\(self.getLatLonString()) \(photoTitle)"
-//                            } else {
-//                                self.photoTitleLabel.text = "\(self.getLatLonString()) (Untitled)"
-//                            }
-//                        } else {
-//                            self.photoTitleLabel.text = photoTitle ?? "(Untitled)"
-//                        }
-//                    })
-//                } else {
-//                    dispatch_async(dispatch_get_main_queue(), {
-//                        self.setUIEnabled(enabled: true)
-//                    })
-//                    print("Image does not exist at \(imageURL)")
-//                }
-//            } else {
-//                dispatch_async(dispatch_get_main_queue(), {
-//                    self.setUIEnabled(enabled: true)
-//                    self.photoTitleLabel.text = "No Photos Found. Search Again."
-//                    self.defaultLabel.alpha = 1.0
-//                    self.photoImageView.image = nil
-//                })
+            } else {
+                completionHandler (success: false, errorString: "No photos returned")
             }
         }
         
@@ -259,7 +226,7 @@ class FlClient : NSObject {
     
     
     func getFlickrPhotoImage(imagePath: String, completionHandler: (imageData: NSData?, error: NSError?) ->  Void) -> NSURLSessionTask {
-        
+        // This function is to take the "url_m" element from previous results and actually fetch the image.
         let url = NSURL(string: imagePath)!
         dbg(url)
         

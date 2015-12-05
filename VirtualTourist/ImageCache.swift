@@ -16,7 +16,7 @@ class ImageCache {
     
     func imageWithIdentifier(identifier: String?) -> UIImage? {
         
-        dbg("Returning image for: \(identifier)")
+        //dbg("Returning image for: \(identifier)")
         // If the identifier is nil, or empty, return nil
         if identifier == nil || identifier! == "" {
             return nil
@@ -40,7 +40,7 @@ class ImageCache {
     // MARK: - Saving images
     
     func storeImage(image: UIImage?, withIdentifier identifier: String) {
-        dbg("Storing image for: \(identifier)")
+        //dbg("Storing image for: \(identifier)")
         let path = pathForIdentifier(identifier)
         
         // If the image is nil, remove images from the cache
@@ -65,12 +65,9 @@ class ImageCache {
     
     // MARK: - Helper
     
-    //B73662BF-EDC3-4A67-8BE3-BCD1031C740B
-    //DCA9E157-B02C-4C76-A926-EC94091AE17F
-    
     func pathForIdentifier(identifier: String) -> String {
         let documentsDirectoryURL: NSURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
-        dbg("Documents URL: \(documentsDirectoryURL)")
+        //dbg("Documents URL: \(documentsDirectoryURL)")
         let fullURL = documentsDirectoryURL.URLByAppendingPathComponent(identifier)
         
         return fullURL.path!

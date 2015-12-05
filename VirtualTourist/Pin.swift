@@ -10,6 +10,8 @@ import Foundation
 import MapKit
 import CoreData
 
+//MARK: Constants
+
 let BOUNDING_BOX_HALF_WIDTH = 1.0
 let BOUNDING_BOX_HALF_HEIGHT = 1.0
 let LAT_MIN = -90.0
@@ -18,12 +20,13 @@ let LON_MIN = -180.0
 let LON_MAX = 180.0
 
 
-class Pin : NSManagedObject, MKAnnotation {
+class Pin : NSManagedObject, MKAnnotation { // Follow MKAnnotation protocol to enable direct placement on map.
     @NSManaged var latitude : Double
     @NSManaged var longitude : Double
+    @NSManaged var pageForCollection: Int
     @NSManaged var photos : [Photo]
     
-    
+    //CoreData compliance
     override init(entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext?) {
         super.init(entity: entity, insertIntoManagedObjectContext: context)
     }
@@ -34,8 +37,10 @@ class Pin : NSManagedObject, MKAnnotation {
         
         self.latitude = latitude
         self.longitude = longitude
+        self.pageForCollection = 0
     }
     
+    //Return coordinates for map/annotation interaction
     var coordinate: CLLocationCoordinate2D {
         get {
             return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
@@ -43,10 +48,6 @@ class Pin : NSManagedObject, MKAnnotation {
     }
     
     func boundingBoxString() -> String {
-        
-//        let latitude = (self.latitudeTextField.text! as NSString).doubleValue
-//        let longitude = (self.longitudeTextField.text! as NSString).doubleValue
-        
         /* Fix added to ensure box is bounded by minimum and maximums */
         let bottom_left_lon = max(longitude - BOUNDING_BOX_HALF_WIDTH, LON_MIN)
         let bottom_left_lat = max(latitude - BOUNDING_BOX_HALF_HEIGHT, LAT_MIN)
