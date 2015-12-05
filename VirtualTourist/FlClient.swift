@@ -15,6 +15,7 @@ let EXTRAS = "url_m"
 let SAFE_SEARCH = "1"
 let DATA_FORMAT = "json"
 let NO_JSON_CALLBACK = "1"
+let PER_PAGE = 21
 
 
 class FlClient : NSObject {
@@ -260,9 +261,7 @@ class FlClient : NSObject {
     func getFlickrPhotoImage(imagePath: String, completionHandler: (imageData: NSData?, error: NSError?) ->  Void) -> NSURLSessionTask {
         
         let url = NSURL(string: imagePath)!
-//        let url = baseURL.URLByAppendingPathComponent(size).URLByAppendingPathComponent(filePath)
-        
-        print(url)
+        dbg(url)
         
         let request = NSURLRequest(URL: url)
         

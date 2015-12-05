@@ -138,7 +138,11 @@
                                 <animations/>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="mtK-XK-za8"/>
-                                    <barButtonItem title="Item" id="BBH-Te-6Co"/>
+                                    <barButtonItem title="Item" id="BBH-Te-6Co">
+                                        <connections>
+                                            <action selector="collectionButtonPressed:" destination="yQU-hV-Nwf" id="bRs-ey-Yye"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="WHz-gJ-6Si"/>
                                 </items>
                             </toolbar>
@@ -188,6 +192,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="collectionButton" destination="BBH-Te-6Co" id="Mu1-nD-DgG"/>
                         <outlet property="collectionView" destination="hes-NO-HyM" id="ksA-GE-ZaA"/>
                         <outlet property="mapView" destination="z2z-Ud-NCT" id="Bkl-ej-Vds"/>
                         <outlet property="noImageView" destination="wsF-NF-7oO" id="duX-m1-41B"/>

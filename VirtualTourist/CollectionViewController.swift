@@ -16,6 +16,7 @@ class CollectionViewController : UIViewController, UICollectionViewDelegate, UIC
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var noImageView: UIView!
+    @IBOutlet weak var collectionButton: UIBarButtonItem!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +29,8 @@ class CollectionViewController : UIViewController, UICollectionViewDelegate, UIC
         loadCollectionForPin()
     }
     
+    @IBAction func collectionButtonPressed(sender: UIBarButtonItem) {
+    }
     var sharedContext: NSManagedObjectContext {
         return CoreDataStackManager.sharedInstance().managedObjectContext
     }
@@ -61,11 +64,12 @@ class CollectionViewController : UIViewController, UICollectionViewDelegate, UIC
     
     func loadCollectionForPin() {
         if pin.photos.isEmpty {
+            dbg("Photos array is empty, fetching from Flickr")
             FlClient.sharedInstance().getCollectionAroundPin(pin) { (success, errorString) -> Void in
                 if success {
-                    dbg("Yes Please")
                     do {
                         try self.fetchedResultsController.performFetch()
+                        CoreDataStackManager.sharedInstance().saveContext()
                         dispatch_async(dispatch_get_main_queue(), {
                             self.collectionView.reloadData()
                         })
@@ -74,8 +78,12 @@ class CollectionViewController : UIViewController, UICollectionViewDelegate, UIC
                     dbg("Oh Oh")
                 }
             }
+        } else {
+            do {
+                try self.fetchedResultsController.performFetch()
+                dbg("Performing fetch")
+            } catch {}
         }
-        
     }
     
     func configureCell(cell: PhotoCell, atIndexPath indexPath : NSIndexPath) {
@@ -86,14 +94,9 @@ class CollectionViewController : UIViewController, UICollectionViewDelegate, UIC
             cell.imageView.image = localImage
         } else if photo.imagePath == nil || photo.imagePath == "" {
             cell.imageView.image = UIImage(named: "noImage")
-            //
-            //            // If the above cases don't work, then we should download the image
-            //
         } else {
-            
-            // Set the placeholder
-            cell.imageView.image = UIImage(named: "imagePlaceHolder")
             cell.showActivity()
+            dbg("Fetching image from Flickr: \(photo.imagePath)")
             let task = FlClient.sharedInstance().getFlickrPhotoImage(photo.imagePath!) { (imageData, error) -> Void in
                 if let data = imageData {
                     dispatch_async(dispatch_get_main_queue()) {

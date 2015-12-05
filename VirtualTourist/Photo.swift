@@ -34,18 +34,22 @@ class Photo : NSManagedObject {
         id = dictionary[Keys.ID] as? String
         title = dictionary[Keys.Title] as? String
         imagePath = dictionary[Keys.ImagePath] as? String
+        dbg("Photo instance created")
     }
     
     var image: UIImage? {
         
         get {
-            return FlClient.Caches.imageCache.imageWithIdentifier(imagePath)
+            return FlClient.Caches.imageCache.imageWithIdentifier(id)
         }
         
         set {
-            FlClient.Caches.imageCache.storeImage(newValue, withIdentifier: imagePath!)
+            FlClient.Caches.imageCache.storeImage(newValue, withIdentifier: id!)
         }
     }
 
+    deinit {
+        dbg("Photo being destroyed")
+    }
     
 }

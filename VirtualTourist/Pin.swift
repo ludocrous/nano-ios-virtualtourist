@@ -55,4 +55,7 @@ class Pin : NSManagedObject, MKAnnotation {
         
         return "\(bottom_left_lon),\(bottom_left_lat),\(top_right_lon),\(top_right_lat)"
     }
+    deinit {
+        dbg("Pin being destroyed")
+    }
 }

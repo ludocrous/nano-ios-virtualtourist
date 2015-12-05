@@ -102,6 +102,7 @@ class MapViewController: UIViewController, NSFetchedResultsControllerDelegate {
     
     func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
         if let pin = view.annotation {
+            mapView.deselectAnnotation(pin, animated: false)
             if inEditMode {
                 mapView.removeAnnotation(pin)
                 sharedContext.deleteObject(pin as! NSManagedObject)
@@ -178,7 +179,7 @@ class MapViewController: UIViewController, NSFetchedResultsControllerDelegate {
             
             let savedRegion = MKCoordinateRegion(center: center, span: span)
             
-            print("lat: \(latitude), lon: \(longitude), latD: \(latitudeDelta), lonD: \(longitudeDelta)")
+            dbg("lat: \(latitude), lon: \(longitude), latD: \(latitudeDelta), lonD: \(longitudeDelta)")
             
             mapView.setRegion(savedRegion, animated: animated)
         }

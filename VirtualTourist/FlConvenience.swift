@@ -22,7 +22,7 @@ extension FlClient {
             "extras": EXTRAS,
             "format": DATA_FORMAT,
             "nojsoncallback": NO_JSON_CALLBACK,
-            "per_page": "21"
+            "per_page": "\(PER_PAGE)"
         ]
         getFlickrPhotosBySearch(forPin: pin, methodArguments: methodArguments, completionHandler: completionHandler)
     }
