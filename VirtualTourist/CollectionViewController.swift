@@ -14,10 +14,12 @@ class CollectionViewController : UIViewController, UICollectionViewDelegate, UIC
     
     var pin: Pin!
     var pinHasImages: Bool = false
+    var imagesToBeLoaded: Int = 0
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var noImageView: UIView!
     @IBOutlet weak var collectionButton: UIBarButtonItem!
+    @IBOutlet weak var collectionToolbar: UIToolbar!
     
     
     var selectedIndexes = [NSIndexPath]()
@@ -34,7 +36,8 @@ class CollectionViewController : UIViewController, UICollectionViewDelegate, UIC
         // Do any additional setup after loading the view, typically from a nib.
         collectionView.delegate = self
         collectionView.dataSource = self
-        pinHasImages = true
+        pinHasImages = false
+        collectionToolbar.userInteractionEnabled = false
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -77,16 +80,6 @@ class CollectionViewController : UIViewController, UICollectionViewDelegate, UIC
         }
     }
     
-    //function to control the display whether or not the pin has photos associated with it
-    func setupView() {
-        if pinHasImages {
-            collectionButton.enabled = true
-            noImageView.hidden = true
-        } else {
-            collectionButton.enabled = false
-            noImageView.hidden = false
-        }
-    }
 
     // Set the mini map view to show the pin in question.
     func setupMapView() {
@@ -97,6 +90,25 @@ class CollectionViewController : UIViewController, UICollectionViewDelegate, UIC
         mapView.setRegion(savedRegion, animated: false)
 
     }
+    
+    //function to control the display whether or not the pin has photos associated with it
+    func setupView() {
+            noImageView.hidden = pinHasImages
+            updateCollectionButton()
+    }
+    
+    func updateCollectionButton () {
+        //depending on selection status toggle button title
+        collectionToolbar.userInteractionEnabled = pinHasImages && (imagesToBeLoaded == 0)
+        collectionButton.enabled = pinHasImages && (imagesToBeLoaded == 0)
+        if selectedIndexes.count > 0 {
+            collectionButton.title = "Remove Selected Pictures"
+        } else {
+            collectionButton.title = "New Collection"
+        }
+    }
+    
+
     
     //This function will request a collection of images for the pin associated with the view
     func loadCollectionForPin() {
@@ -170,10 +182,19 @@ class CollectionViewController : UIViewController, UICollectionViewDelegate, UIC
                 cell.imageView.image = UIImage(named: "placeHolder")
                 cell.showActivity()
 //                dbg("Fetching image from Flickr: \(photo.imagePath)")
+                imagesToBeLoaded++
+                updateCollectionButton()
+                dbg("image count \(imagesToBeLoaded)")
                 let task = FlClient.sharedInstance().getFlickrPhotoImage((photo.imagePath!)) { (imageData, error) -> Void in
                     //irrespective of result, stop activity
                     dispatch_async(dispatch_get_main_queue()) {
                         cell.stopActivity()
+                        self.imagesToBeLoaded--
+                        dbg("image count \(self.imagesToBeLoaded)")
+                        if self.imagesToBeLoaded == 0 {
+                            self.updateCollectionButton()
+                        }
+
                     }
                     //process the image
                     if let data = imageData {
@@ -211,15 +232,6 @@ class CollectionViewController : UIViewController, UICollectionViewDelegate, UIC
             loadCollectionForPin()
             fetchResults()
             collectionView.reloadData()
-        }
-    }
-    
-    func updateCollectionButton () {
-        //depending on selection status toggle button title
-        if selectedIndexes.count > 0 {
-            collectionButton.title = "Remove Selected Pictures"
-        } else {
-            collectionButton.title = "New Collection"
         }
     }
     

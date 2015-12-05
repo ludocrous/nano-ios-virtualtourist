@@ -193,6 +193,7 @@
                     </view>
                     <connections>
                         <outlet property="collectionButton" destination="BBH-Te-6Co" id="Mu1-nD-DgG"/>
+                        <outlet property="collectionToolbar" destination="opJ-4o-gwS" id="Ade-xh-6cY"/>
                         <outlet property="collectionView" destination="hes-NO-HyM" id="ksA-GE-ZaA"/>
                         <outlet property="mapView" destination="z2z-Ud-NCT" id="Bkl-ej-Vds"/>
                         <outlet property="noImageView" destination="wsF-NF-7oO" id="duX-m1-41B"/>
