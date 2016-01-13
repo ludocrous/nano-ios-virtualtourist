@@ -75,6 +75,7 @@ class MapViewController: UIViewController, NSFetchedResultsControllerDelegate {
     
     func createPinAtCoordinates(latitude latitude: Double, longitude: Double) {
         // This will create a new instance on Pin, show it on the map and save the context
+        //assert(NSThread.isMainThread())
         let pin = Pin(latitude: latitude, longitude: longitude, context: sharedContext)
         mapView.addAnnotation(pin)
         CoreDataStackManager.sharedInstance().saveContext()
@@ -83,6 +84,8 @@ class MapViewController: UIViewController, NSFetchedResultsControllerDelegate {
     func setAnnotationsFromPins() {
         // Load the pins from context and place as annotations on the map
         do {
+            //assert(NSThread.isMainThread())
+            //This function will be called on the main thread as ViewDidLoad is called on main thread
             try fetchedResultsController.performFetch()
             if let results = fetchedResultsController.fetchedObjects {
                 for pin in results {

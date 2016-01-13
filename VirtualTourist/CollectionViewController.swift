@@ -57,7 +57,7 @@ class CollectionViewController : UIViewController, UICollectionViewDelegate, UIC
         
         let fetchRequest = NSFetchRequest(entityName: "Photo")
         
-        fetchRequest.sortDescriptors = []//NSSortDescriptor(key: "title", ascending: true)]
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
         fetchRequest.predicate = NSPredicate(format: "pin == %@", self.pin);
         
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
@@ -166,6 +166,7 @@ class CollectionViewController : UIViewController, UICollectionViewDelegate, UIC
         }
         //Clear the selected indexs array
         selectedIndexes = [NSIndexPath]()
+        CoreDataStackManager.sharedInstance().saveContext()
     }
     
     func configureCell(cell: PhotoCell, atIndexPath indexPath : NSIndexPath) {
@@ -308,7 +309,7 @@ class CollectionViewController : UIViewController, UICollectionViewDelegate, UIC
             
         case .Insert:
             dbg("Insert an item")
-            // Here we are noting that a new Color instance has been added to Core Data. We remember its index path
+            // Here we are noting that a new Photo instance has been added to Core Data. We remember its index path
             // so that we can add a cell in "controllerDidChangeContent". Note that the "newIndexPath" parameter has
             // the index path that we want in this case
             insertedIndexPaths.append(newIndexPath!)

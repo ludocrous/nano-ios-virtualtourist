@@ -106,13 +106,23 @@ class FlClient : NSObject {
 //            let pageLimit = min(totalPages, 40)
             if totalPages > 0 {
                 // Here we select the next page for a new collection. 
-                //If its the first time it will use page 1 and once we reach the end of totalpages scroll around again and start at 1
-                let page = pin.pageForCollection < totalPages ? pin.pageForCollection + 1 : 1
-                pin.pageForCollection = page
+                //Ifits the first time it will use page 1 and once we reach the end of totalpages scroll around again and start at 1
+                var page : Int?
+                //First check if we are on the main thread.
+                if NSThread.isMainThread() {
+                    page = pin.pageForCollection < totalPages ? pin.pageForCollection + 1 : 1
+                    pin.pageForCollection = page!
+                } else {
+                    // if not on main thread then synchronously perform assigmennts on main thread to esnure thread safety for CoreData objects.
+                    dispatch_sync(dispatch_get_main_queue(), {
+                        page = pin.pageForCollection < totalPages ? pin.pageForCollection + 1 : 1
+                        pin.pageForCollection = page!
+                    })
+                }
                 dbg("Retrieving collection from page: \(page)")
                 //now we redo the query for a specific page.
                 //TODO: If page = 1 , we could jump to completionHandler here to save second query.
-                self.getFlickrPhotosBySearchWithPage(forPin: pin, methodArguments: methodArguments, pageNumber: page, completionHandler: completionHandler)
+                self.getFlickrPhotosBySearchWithPage(forPin: pin, methodArguments: methodArguments, pageNumber: page!, completionHandler: completionHandler)
             } else {
                 //if totalpages = 0 then abort
                 completionHandler(success: false, errorString: "No photos returned")
@@ -210,9 +220,17 @@ class FlClient : NSObject {
                 for photo in photosArray {
                     let photoDictionary = photo as [String: AnyObject]
                     dbg(photoDictionary)
-                    //Creat the new photo instance witch associated context.
-                    let newPhoto = Photo(dictionary: photoDictionary, context: CoreDataStackManager.sharedInstance().managedObjectContext)
-                    newPhoto.pin = pin
+                    //Create the new photo instance witch associated context.
+                    //First check if we are on the main thread.
+                    if NSThread.isMainThread() {
+                        let newPhoto = Photo(dictionary: photoDictionary, context: CoreDataStackManager.sharedInstance().managedObjectContext)
+                        newPhoto.pin = pin
+                    } else {
+                    // if not on main thread then synchronously perform assigmennts on main thread to esnure thread safety for CoreData objects.
+                        dispatch_sync(dispatch_get_main_queue(), {
+                            let newPhoto = Photo(dictionary: photoDictionary, context: CoreDataStackManager.sharedInstance().managedObjectContext)
+                            newPhoto.pin = pin})
+                    }
                 }
                 completionHandler (success: true, errorString: nil)
                 
